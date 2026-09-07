@@ -102,8 +102,6 @@ The words ``thesis'' and ``dissertation'' are used interchangeably here. All act
 \tableofcontents
 \listoffigures
 \listoftables
-\listofalgorithms
-\lstlistoflistings
 
 % The following sections are part of the front matter, but are not generated
 % automatically by LaTeX; the use of \chapter* means they are not numbered.
@@ -133,92 +131,151 @@ Overall, the study demonstrates how repeated cross-sectional survey data can sup
 % -----------------------------------------------------------------------------
 
 \chapter*{Supporting Technologies}
-
-{\bf A compulsory section, of at most $1$ page}
-\vspace{1cm} 
+\addcontentsline{toc}{chapter}{Supporting Technologies}
+\markboth{Supporting Technologies}{Supporting Technologies}
 
 \noindent
-This section should present a detailed summary, in bullet point form, 
-of any third-party resources (e.g., hardware and software components) 
-used during the project.  Use of such resources is always perfectly 
-acceptable: the goal of this section is simply to be clear about how
-and where they are used, so that a clear assessment of your work can
-result.  The content can focus on the project topic itself (rather,
-for example, than including ``I used \mbox{\LaTeX} to prepare my 
-dissertation''); an example is as follows:
-
-\begin{quote}
-\noindent
+\textbf{Data and reference sources}
 \begin{itemize}
-
-\item I used the {\em Pandas} and {\em Seaborn} public-domian Python Libraries. 
-
-\item I used a parts of the OpenCV computer vision library to capture 
-      images from a camera, and for various standard operations (e.g., 
-      threshold, edge detection).
-
-\item I used Amazon Web Services for remote storage and processing of data. Specifically, I used:
- \begin{itemize}
- \item Simple Storage Service (S3) for data storage
- \item Elastic Compute Cloud (EC2) for provision of virtual machines
- \item Elastic Beanstalk for scaling and load management
- \item Sagemaker for all the machine learning components of my project. 
- \end{itemize}
- 
-\item I used \LaTeX\ to format my thesis, via the online service {\em Overleaf}. 
+  \item Active Lives Adult Survey, waves 2015--16 to 2022--23, obtained from the
+        UK Data Service (Study Number 9288, deposited by Sport England). The
+        files were supplied in SPSS format.
+  \item ONS Government Statistical Service local-authority codes, used as the
+        permanent borough identifiers to which each wave's local-authority
+        variable was mapped.
+  \item ONS boundary files for the 32 London boroughs, used for the choropleth
+        maps in the exploratory analysis.
 \end{itemize}
-\end{quote}
+
+\noindent
+\textbf{Languages and environment}
+\begin{itemize}
+  \item Python 3 for all data preparation, modelling and forecasting work.
+  \item Jupyter Notebook for exploratory and modelling work, with the final
+        pipeline organised into scripts.
+  \item Git and GitHub for version control and for sharing code between team
+        members.
+\end{itemize}
+
+\noindent
+\textbf{Data handling}
+\begin{itemize}
+  \item pandas and NumPy for merging the waves, harmonising variables and
+        constructing the modelling datasets.
+  \item pyreadstat for reading the SPSS files and converting the survey sentinel
+        codes to missing values.
+\end{itemize}
+
+\noindent
+\textbf{Modelling and evaluation}
+\begin{itemize}
+  \item statsmodels for the ordinal logistic propensity model and for the trend
+        fits used in the population and behavioural projections.
+  \item LightGBM for the gradient-boosting comparison model.
+  \item CatBoost for the second gradient-boosting comparison model.
+  \item SHAP for examining the contribution of individual predictors to the
+        CatBoost predictions.
+  \item kmodes for the K-Modes clustering of categorical demographic
+        characteristics.
+  \item scikit-learn for the Random Forest and Gradient Boosting classifiers
+        applied to the clusters, and for the evaluation metrics used throughout.
+  \item PyMC for the Bayesian hierarchical ordinal model, fitted using Markov
+        Chain Monte Carlo sampling, with ArviZ used for convergence diagnostics.
+\end{itemize}
+
+\noindent
+\textbf{Visualisation and write-up}
+\begin{itemize}
+  \item Matplotlib and seaborn for the figures.
+  \item GeoPandas for the borough-level maps.
+  \item Canva for the workflow diagrams in Chapter~3.
+  \item LaTeX, via Overleaf, for preparing this dissertation, with BibTeX for
+        the bibliography.
+\end{itemize}
 
 % -----------------------------------------------------------------------------
 
 \chapter*{Notation and Acronyms}
+\addcontentsline{toc}{chapter}{Notation and Acronyms}
+\markboth{Notation and Acronyms}{Notation and Acronyms}
 
-{\bf An optional section, of roughly $1$ or $2$ pages}
-\vspace{1cm} 
-
-\noindent
-Any well written document will introduce notation and acronyms before
-their use, {\em even if} they are standard in some way: this ensures 
-any reader can understand the resulting self-contained content.  
-
-Said introduction can exist within the dissertation itself, wherever 
-that is appropriate.  For an acronym, this is typically achieved at 
-the first point of use via ``Advanced Encryption Standard (AES)'' or 
-similar, noting the capitalisation of relevant letters.  However, it 
-can be useful to include an additional, dedicated list at the start 
-of the dissertation; the advantage of doing so is that you cannot 
-mistakenly use an acronym before defining it.  A limited example is 
-as follows:
+\section*{Acronyms}
 
 \begin{quote}
 \noindent
-\begin{tabular}{lcl}
-AES                 &:     & Advanced Encryption Standard                                         \\
-DES                 &:     & Data Encryption Standard                                             \\
-                    &\vdots&                                                                      \\
-${\mathcal H}( x )$ &:     & the Hamming weight of $x$                                            \\
-${\mathbb  F}_q$    &:     & a finite field with $q$ elements                                     \\
-$x_i$               &:     & the $i$-th bit of some binary sequence $x$, st. $x_i \in \{ 0, 1 \}$ \\
+\begin{tabular}{l c >{\raggedright\arraybackslash}p{0.62\textwidth}}
+ARIMA    & : & Autoregressive Integrated Moving Average \\
+AUC      & : & Area Under the ROC Curve \\
+BMI      & : & Body Mass Index \\
+CatBoost & : & Categorical Boosting \\
+COVID-19 & : & Coronavirus Disease 2019 \\
+EDA      & : & Exploratory Data Analysis \\
+GLA      & : & Greater London Authority \\
+GSS      & : & Government Statistical Service \\
+\texttt{LA\_code} & : & the harmonised local-authority (borough) identifier constructed during data preparation \\
+LightGBM & : & Light Gradient Boosting Machine \\
+MAE      & : & Mean Absolute Error \\
+N-BEATS  & : & Neural Basis Expansion Analysis for Interpretable Time Series Forecasting \\
+NaN      & : & Not a Number, the missing-value marker used when survey sentinel codes were converted during import \\
+NSSEC5   & : & the five-category National Statistics Socio-economic Classification variable used in the survey files \\
+ONS      & : & Office for National Statistics \\
+P1--P4   & : & the four analytical pillars (overall participation, demographic-specific participation, indoor versus outdoor activity, and volunteering in sport) \\
+RMSE     & : & Root Mean Squared Error \\
+ROC      & : & Receiver Operating Characteristic \\
+SHAP     & : & Shapley Additive Explanations \\
+SPSS     & : & Statistical Package for the Social Sciences, the format in which the survey files are distributed \\
+UKDS     & : & UK Data Service \\
 \end{tabular}
 \end{quote}
+
+\section*{Notation}
+
+\begin{quote}
+\noindent
+\begin{tabular}{l c >{\raggedright\arraybackslash}p{0.62\textwidth}}
+$i$         & : & an individual survey respondent \\
+$b$         & : & a London borough, $b \in \{ 1, \dots, 32 \}$ \\
+$c$         & : & a demographic cell, defined by a combination of demographic categories \\
+$t$         & : & a survey year or forecast year \\
+$\tau$      & : & a forecast origin used in rolling-origin backtesting \\
+$k$         & : & an ordered activity category, $k \in \{ 0, 1, 2 \}$ \\
+$X_i$       & : & the vector of predictor variables for respondent $i$ \\
+$Y_i$       & : & the activity outcome for respondent $i$; binary $\in \{ 0, 1 \}$ for the guideline task, ordinal $\in \{ 0, 1, 2 \}$ for \texttt{Activity\_Level}, where $0$ is Inactive, $1$ Fairly Active, $2$ Active \\
+$p_i$       & : & the predicted probability $P( Y_i = 1 \mid X_i )$ \\
+$\hat{y}_i$ & : & the predicted value for respondent $i$ \\
+$w_i$       & : & the survey weight attached to respondent $i$ \\
+$\ell( \cdot, \cdot )$ & : & the loss for a single observation \\
+$L$         & : & the survey-weighted loss summed over the sample \\
+$f_k$       & : & the $k$-th decision tree in a gradient-boosting ensemble \\
+$K$         & : & the total number of trees in the ensemble \\
+$\beta$     & : & the vector of fixed-effect coefficients \\
+$\eta_i$    & : & the linear predictor for respondent $i$ \\
+$u_{b[i]}$  & : & the random effect for the borough containing respondent $i$ \\
+$\theta_k$  & : & the ordered threshold separating activity categories in the cumulative-logit model \\
+$r_{b,t}$   & : & the predicted activity rate for borough $b$ in year $t$ \\
+$r_t^{\mathrm{obs}}$ & : & the observed London-wide activity rate in year $t$ \\
+$s_{b,c,t}$ & : & the projected population share of demographic cell $c$ in borough $b$ in year $t$ \\
+$p_{b,c}$   & : & the estimated probability of being Active for demographic cell $c$ in borough $b$ \\
+$\delta_t$  & : & the behavioural trend term for year $t$ \\
+$\Delta r_b$& : & the change in the activity rate of borough $b$ between two periods \\
+$m_{b,c}$   & : & the logit-scale trend in the population share of cell $c$ in borough $b$ \\
+$\lambda$   & : & the shrinkage weight pulling borough-specific trends towards the London-wide trend, $\lambda = 0.5$ \\
+\end{tabular}
+\end{quote}
+
+\noindent
+\textbf{Units.} Activity rates are reported as percentages of adults. Differences
+between rates are reported in percentage points, abbreviated to ``points'' where
+the meaning is clear from context.
 
 % -----------------------------------------------------------------------------
 
 \chapter*{Acknowledgements}
 
-{\bf An optional section, of at most $1$ page}
-\vspace{1cm} 
-
-\noindent
-It is common practice (although totally optional) to acknowledge any
-third-party advice, contribution or influence you have found useful
-during your work.  Examples include support from friends or family, 
-the input of your Supervisor and/or Advisor, external organisations 
-or persons who  have supplied resources of some kind (e.g., funding, 
-advice or time), and so on.
-
-\vspace{1cm}
-Dave Cliff writes here to say huge thanks to his colleague Dr Dan Page for sharing this \LaTeX\ thesis template, which was originally written by Dan, for Computer Science dissertations. Dave edited Dan's original to better suit the needs of the Data Science MSc: please don't hassle Dan about any of this, but do feel free to contact Dave if you have any questions or comments on it.  
+We would like to express our sincere gratitude to our supervisor, Dr. Dalila O’Grady, whose guidance, feedback and encouragement shaped this project from its earliest stages through to completion.
+We are grateful to one another for the shared effort behind this work, and in particular for the collaborative approach to the data harmonisation and modelling on which the framework rests. Working through the difficult decisions together, including the borough-code checks that caught errors no automated test would have flagged, made the final result stronger than any of us would have reached alone.
+This project uses data from the Active Lives Adult Survey. We acknowledge Sport England as the originator of the survey and the UK Data Service for making the data available (Study Number 9288). We also thank London Sport, whose interest in borough-level participation gave our work a clear practical purpose.
+Finally, we thank our families and friends for their patience and support throughout this dissertation.
 
 % =============================================================================
 
@@ -243,7 +300,7 @@ Dave Cliff writes here to say huge thanks to his colleague Dr Dan Page for shari
 
 Physical activity is an important determinant of physical health, mental well-being, and quality of life \cite{who_physical_activity_2024}. However, the participation rate differs from one population group to another and even between regions, which results in health disparities and adds to the burden on public health care systems \cite{who_physical_activity_2024}.
 
-London acts as a significant location when it comes to studying the factors affecting the participation rates of people in doing Physical activities due to diverse demographics residing here, having socio-economic disparities and variation in availability of sports facilities as well \cite{sport_england_active_lives,brainard_etal_2019}. It helps understand the obstacles faced by Public Health Care authorities and proves that the benefits gained through exercise are not uniformly distributed among citizens \cite{brainard_etal_2019,brinkley_etal_2024}.
+London provides an important setting for studying the factors associated with physical activity participation because of its diverse population, socio-economic inequalities and variation in the availability of sports facilities \cite{sport_england_active_lives,brainard_etal_2019}. This helps to understand the challenges faced by public health authorities and highlights that the benefits of physical activity are not distributed equally across the population \cite{brainard_etal_2019,brinkley_etal_2024}.
 
 Understanding how participation may change in the future is therefore relevant to organisations and policymakers when planning interventions, allocating resources and setting local targets. However, population surveys primarily provide information about historical participation rather than direct estimates of future outcomes.
 
@@ -272,7 +329,7 @@ The Active Lives Survey is a repeated cross-sectional survey rather than a panel
 The dataset used contains 32 boroughs across eight annual waves, giving 256 borough-year observations. Several survey waves were also affected by the disruption associated with the COVID-19 pandemic \cite{sport_england_active_lives}. This provides relatively limited temporal information from which a time-series or machine-learning model could learn reliable long-term patterns. Instead of trying to learn a complex time trend from these few observations, the project therefore separates the relationship between demographic characteristics and activity from the projection of future population composition. This allows the larger individual-level survey sample to be used when estimating the demographic relationship, while population changes are considered separately when producing the forecasts. Given the temporal structure of the data, model evaluation uses a final unseen-wave test, together with rolling-origin back testing, to assess whether the framework can generalise to later survey waves without using information from future periods.
 
 \textbf{Maintaining interpretability for a non-technical audience:}
-The forecasts are intended to support decision-making by local authorities and organisations around resource allocation and possible interventions. Therefore, interpretability was considered alongside predictive performance and computational efficiency. A more complex model is not necessarily more useful if its results are difficult for the intended audience to understand or justify. The modelling approaches were therefore evaluated based on predictive performance, compatibility with the forecasting objective, computational practicality and interpretability. LightGBM achieved the strongest predictive performance among the comparison models using the three-band activity outcome \cite{ke_etal_2017}. However, its performance was close to that of the ordinal logistic model, and the ordinal logistic model was selected as the principal propensity model within the forecasting framework because of its simplicity and interpretability \cite{mccullagh_1980}.
+The forecasts are intended to support decision-making by local authorities and organisations around resource allocation and possible interventions. Therefore, interpretability was considered alongside predictive performance and computational efficiency. A more complex model is not necessarily more useful if its results are difficult for the intended audience to understand or justify. The modelling approaches were therefore evaluated based on predictive performance, compatibility with the forecasting objective, computational practicality and interpretability. LightGBM achieved a slightly higher predictive score than the ordinal logistic model on the three-band activity outcome \cite{ke_etal_2017}. However, the difference was small, and the ordinal logistic model was selected as the principal propensity model within the forecasting framework because of its simplicity and interpretability \cite{mccullagh_1980}.
 This consideration is further discussed in Chapter 2, where the candidate modelling approaches are introduced, and in Chapter 4, where their comparison informs the selection of the principal propensity model used within the forecasting framework.
 
 
@@ -325,13 +382,13 @@ Building on the demographic and geographical determinants identified above and t
 
 The Bayesian hierarchical ordinal model was also another model that was considered in light of the ordinal nature of the activity outcome and different boroughs for each respondent. Ordinal regression provides one with the means of analysing ordered categories \cite{mccullagh_1980}, while the hierarchical structure takes into account geographical variations through borough effects. This approach provided a way to model individual-level relationships while accounting for variation between London boroughs and was used for methodological comparison rather than as the final forecasting model.
 
-For the forecasting framework, particular consideration was given to the ordinal logistic model because the outcome consists of three ordered activity categories: inactive, fairly active and active. This provides a direct and interpretable way of estimating the probability of an individual belonging to each activity category based on their demographic and geographical characteristics. LightGBM achieved the strongest predictive performance among the comparison models using the three-band outcome, while the performance of the ordinal logistic model was close to that of LightGBM. \textbf{The ordinal logistic model was therefore selected as the principal propensity model within the forecasting framework} because of its simplicity and interpretability, while providing predictive performance suitable for the modelling stage.
+For the forecasting framework, particular consideration was given to the ordinal logistic model because the outcome consists of three ordered activity categories: inactive, fairly active and active. This provides a direct and interpretable way of estimating the probability of an individual belonging to each activity category based on their demographic and geographical characteristics. LightGBM achieved a slightly higher predictive score than the ordinal logistic model on the three-band outcome, while the difference in performance was small. \textbf{The ordinal logistic model was therefore selected as the principal propensity model within the forecasting framework} because of its simplicity and interpretability, while providing predictive performance suitable for the modelling stage.
 
 \section{Modelling and Forecasting Framework}
 
 The candidate approaches provided different ways of modelling physical activity participation, but the final framework required an approach that could be integrated with future population projections. The study therefore adopts an individual-level propensity modelling approach rather than forecasting borough participation rates directly from the short sequence of annual observations. The selected framework estimates activity propensity based on individual demographic and geographical characteristics, using the harmonised Active Lives data. The activity outcome is represented using three ordered activity bands: inactive, fairly active and active. The evaluation therefore considers both performance on a final unseen survey wave and rolling-origin backtesting across earlier forecast origins.
 
-Although LightGBM achieved the strongest predictive performance among the comparison models using the three-band outcome, its performance was close to that of the ordinal logistic model. The ordinal logistic model was therefore selected as the principal propensity model within the forecasting framework because of its simplicity and interpretability. Model selection considered predictive performance, compatibility with the three-band forecasting target, computational practicality, compatibility with the wider forecasting pipeline and interpretability.
+LightGBM achieved a slightly higher predictive score than the ordinal logistic model on the three-band outcome, while the difference in performance was small. The ordinal logistic model was therefore selected as the principal propensity model within the forecasting framework because of its simplicity and interpretability. Model selection considered predictive performance, compatibility with the three-band forecasting target, computational practicality, compatibility with the wider forecasting pipeline and interpretability.
 
 The estimated propensities are subsequently combined with projected population composition and estimated behavioural trends to generate future borough-level participation estimates. For the final propensity modelling framework, survey weights were incorporated where appropriate to account for the survey design when estimating participation patterns. Forecast performance was also assessed against persistence and drift baselines, representing continuation of the latest observed rate and continuation of the previous trend, respectively.
 
@@ -369,8 +426,8 @@ This project follows a five-stage modelling and forecasting workflow, designed t
 \item[Stage 1 -- Data Preparation and Harmonisation:] The eight annual survey waves were combined into a single dataset. Variables were standardised across years, borough identifiers were harmonised using permanent ONS GSS codes, and missing or inconsistent values were addressed.
 \item[Stage 2 -- Exploratory Data Analysis:] The cleaned data were examined to identify missingness, unusual values, changes in survey coverage and other potential data-quality issues before modelling.
 \item[Stage 3 -- Feature Engineering:] The Activity Level outcome was derived and demographic variables were consolidated into a model-ready dataset.
-\item[Stage 4 -- Machine Learning Modelling:] Four separate modelling approaches were developed: LightGBM, CatBoost, clustering-based models, and a Bayesian hierarchical ordinal model.
-\item[Stage 5 -- Forecasting and Scenario Analysis:] The selected forecasting model was combined with projected population composition and behavioural trends to estimate future activity levels and separate changes associated with population composition from changes in behaviour.
+\item[Stage 4 -- Modelling:] Four complementary modelling approaches were developed: CatBoost with SHAP for interpreting individual-level predictors, ordinal logistic regression as the principal propensity model for the forecasting framework, benchmarked against LightGBM, K-Modes clustering with supervised classifiers for demographic segmentation, and a Bayesian hierarchical ordinal model for assessing borough-level variation and uncertainty.
+\item[Stage 5 -- Forecasting and Scenario Analysis:] The ordinal logistic propensity model was combined with projected population composition and behavioural trends to estimate future activity levels and separate changes associated with population composition from changes in behaviour.
 \end{description}
 
 \noindent
@@ -465,7 +522,7 @@ Overall, the EDA established three important features of the data: strong demogr
 \section{Modelling Framework}
 
 \noindent
-Four modelling approaches were developed to examine physical activity from complementary statistical and machine-learning perspectives: LightGBM, CatBoost, K-Modes clustering with classification, and a Bayesian hierarchical ordinal model. All the models used the same prepared survey data but their outcome definitions and modelling objectives differed. LightGBM and CatBoost were used for supervised prediction, the clustering approach explored respondent segments, and the Bayesian model directly represented the ordered Activity Level outcome and borough-level variation.
+Four complementary modelling approaches were developed to examine physical activity from statistical and machine-learning perspectives: CatBoost with SHAP, ordinal logistic regression benchmarked against LightGBM, K-Modes clustering with classification, and a Bayesian hierarchical ordinal model. All approaches used the same prepared survey data, but their outcome definitions and modelling objectives differed. CatBoost was used for individual-level prediction and interpretation, ordinal logistic regression and LightGBM were compared as alternative propensity models for the forecasting framework, the clustering approach explored respondent segments, and the Bayesian model represented the ordered Activity Level outcome and borough-level variation.
 
 \FloatBarrier
 \subsection{Prediction Targets and Notation}
@@ -504,16 +561,31 @@ where 0 = Inactive, 1 = Fairly Active and 2 = Active. This preserves the natural
 The Active Lives Survey uses survey weights to account for the sampling design and improve the representativeness of estimates. Where supported by the modelling method, these weights were incorporated during model training. For an observation \(i\) with survey weight \(w_i\), a weighted loss can be expressed generally as
 
 \[
-\mathcal{L} = \sum_{i=1}^{n} w_i \, \mathcal{l}(y_i,\widehat{y}_i),
+\mathcal{L} = \sum_{i=1}^{n} w_i \,\ell(y_i,\widehat{y}_i),
 \]
 
-where \(\mathcal{l}\) represents the loss for an individual observation. Consequently, observations with larger survey weights contribute more to the model's objective. This was particularly important when developing population-level predictions from the survey data.
+where \(\ell\) represents the loss for an individual observation. Consequently, observations with larger survey weights contribute more to the model's objective. This was particularly important when developing population-level predictions from the survey data.
 
 \FloatBarrier
 \subsection{Model Specifications}
 
 \noindent
-\textbf{LightGBM} was used as one of the candidate supervised models for the forecasting task. It is a gradient-boosting algorithm that builds a sequence of decision trees, with each tree improving the errors made by the previous trees. The prediction can be represented as,
+\textbf{Ordinal logistic regression} was used as the principal propensity model for
+the forecasting framework and was benchmarked against LightGBM to assess
+whether a more flexible non-linear model provided a meaningful improvement
+in predictive performance. The model uses the three ordered Activity-Level
+categories Inactive, Fairly Active and Active and estimates the cumulative
+probability of being at or below each activity level. This provides a direct
+and interpretable representation of the ordered outcome. The model was fitted
+using the same predictor set and survey weights as the LightGBM benchmark.
+Its main limitation is the proportional-odds assumption, which requires the
+effect of each predictor to be consistent across the cumulative activity
+thresholds.
+
+LightGBM was used as the benchmark alternative to the ordinal logistic
+propensity model. It is a gradient-boosting algorithm that builds a sequence
+of decision trees, with each tree improving the errors made by the previous
+trees. The prediction can be represented as,
 
 \[
 \widehat{y}_i = \sum_{k=1}^{K} f_k(X_i),
@@ -592,19 +664,19 @@ MAE gives the average absolute prediction error, while RMSE places greater empha
 \section{Model Validation}
 
 \noindent
-Model validation was designed to assess how well the models generalise to observations that were not used during training. Since the data are collected across consecutive survey waves, a time-based validation strategy was used rather than a random train--test split. This ensures that information from later years is never used to predict an earlier year.
+Model validation was designed to assess how well the models generalise to observations that were not used during training. Since the data are collected across consecutive survey waves, a time-based validation strategy was used rather than a random train--test split. This ensures that information from later years is never used to predict an earlier year. For the forecasting framework, this validation was applied to the selected ordinal logistic propensity model.
 
 \FloatBarrier
 \subsection{Temporal Holdout}
 
 \noindent
-The final survey wave, 2022--23, was retained as an unseen test set. Models were developed using the preceding survey waves and evaluated on this final wave. This provides a realistic assessment of how the modelling framework performs when applied to a future observation.
+The final survey wave, 2022--23, was retained as an unseen test set. Candidate models were developed using the preceding survey waves and evaluated on this final wave. This provides a realistic assessment of how the modelling framework performs when applied to a future observation.
 
 \FloatBarrier
 \subsection{Rolling-Origin Backtesting}
 
 \noindent
-A rolling-origin approach was additionally used to test whether forecasting performance was consistent across different points in time. At each forecast origin \(\tau\), the model was trained only on the waves available up to that point and used to predict the following wave:
+A rolling-origin approach was additionally used to test whether the selected forecasting framework produced consistent forecasts across different points in time. At each forecast origin \(\tau\), the ordinal logistic propensity model was trained only on the waves available up to that point and used within the forecasting framework to predict the following wave:
 
 \[
 \text{Train on waves }1,\ldots,\tau
@@ -627,7 +699,7 @@ This process was repeated for the available clean forecast origins (\(\tau=3,6,7
 Wave 3                  & Waves 1--3                  & Wave 4        & yes \\
 Wave 6                  & Waves 1--6                  & Wave 7        & yes \\
 Wave 7                  & Waves 1--7                  & Wave 8        & yes \\
-Pandemic-target origins & Available historical waves & Pandemic wave & yes \\
+Pandemic-target origins & Available historical waves & Pandemic wave & no \\
 \bottomrule
 \end{tabular}
 \caption{Rolling-origin validation design}
@@ -660,7 +732,7 @@ A positive skill score indicates that the model has lower forecasting error than
 \section{Forecasting Framework}
 
 \noindent
-The forecasting framework combines the estimated activity propensities with projected changes in the demographic composition of each borough. This approach was chosen because the dataset contains many individual-level observations but only eight annual survey waves, making a conventional borough-level time-series model unsuitable. Instead, the framework separates changes in participation into demographic composition and behavioural change.
+The forecasting framework combines the ordinal logistic propensity model with projected demographic composition and behavioural trends to estimate future physical activity levels. The framework separates expected changes due to population composition from changes associated with behavioural trends, allowing forecasts to be interpreted as a combination of demographic and behavioural effects.
 
 \FloatBarrier
 \subsection{Forecasting equation}
@@ -678,7 +750,7 @@ For borough \(b\) at time \(t\), the predicted activity rate is defined as:
 
 where \(s_{b,c,t}\) is the projected population share of demographic cell \(c\) in borough \(b\), \(p_{b,c}\) is the estimated probability of being active for that demographic cell, and \(\delta_t\) represents the overall behavioural trend.
 
-This can be understood as who lives in the borough \(\times\) how likely that group is to be active + changes in behaviour over time. The propensity model is treated as time-free, meaning that it does not itself predict future time periods. Instead, future change is introduced through the projected population composition and behavioural trend.
+This can be understood as who lives in the borough \(\times\) how likely that group is to be active + changes in behaviour over time. The propensity model does not directly model temporal trends or extrapolate activity into future survey years. Instead, time-dependent changes are introduced separately through the projected population composition and behavioural trend.
 
 \FloatBarrier
 \subsection{Population projection}
@@ -757,7 +829,7 @@ Because behavioural change is the least certain component over a ten-year horizo
 \noindent
 The modelling framework was evaluated using both the final unseen survey wave and rolling-origin backtesting. The final 2022--23 wave was kept separate from model development and provided the main test of how well the models generalised to a previously unseen period. In addition, rolling-origin validation was used to assess whether the forecasting approach remained reasonably consistent when predicting different survey waves rather than relying on a single holdout period.
 
-The results show that the supervised models were able to identify meaningful patterns in physical activity from demographic and borough-level characteristics. However, the models differed in their objectives and outcome definitions, so their results cannot be interpreted as a single ranking based on one metric. LightGBM and the Bayesian model predict the three ordered activity levels, whereas CatBoost and the clustering-based approaches use binary or cluster-based outcomes. The comparison therefore considers predictive performance alongside the suitability of each approach for the project's forecasting objective.
+The results show that the supervised models were able to identify meaningful patterns in physical activity from demographic and borough-level characteristics. However, the models differed in their objectives and outcome definitions, so their results cannot be interpreted as a single ranking based on one metric. Ordinal logistic regression, LightGBM and the Bayesian model predict the three ordered activity levels, whereas CatBoost and the clustering-based approaches use binary or cluster-based outcomes. The comparison therefore considers predictive performance alongside the suitability of each approach for the project's forecasting objective.
 
 A simple forecasting baseline was also used as a reference point. The purpose of the baseline was to establish whether the modelling approach provided useful predictive information beyond what could be achieved by simply carrying forward recent activity levels or continuing an existing trend. This provides a more meaningful assessment of forecasting performance than considering model accuracy alone.
 
@@ -771,30 +843,33 @@ The modelling approaches produced different strengths and limitations because th
 
 \begin{table}[!htb]
 \centering
+\small
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lllllll}
 \toprule
-\textbf{Model} & \textbf{Target} & \textbf{AUC} & \textbf{Logloss} & \textbf{Accuracy} & \textbf{Marco F1} & \textbf{Runtime} \\
+\textbf{Model} & \textbf{Target} & \textbf{AUC} & \textbf{Logloss} & \textbf{Accuracy} & \textbf{Macro F1} & \textbf{Runtime} \\
 \midrule
-Light GBM & 3-band ordinal & 0.707 & 0.794 & 67.4\%* & --- & 15 min 50 sec \\
-Catboost & Binary & 0.708 & 0.588 & 68.9\% & --- & --- \\
+Ordinal logistic regression & 3-band ordinal & 0.704 & 0.797 & 67.1\%* & 0.392 & 45 min \\
+LightGBM & 3-band ordinal & 0.707 & 0.794 & 67.4\%* & 0.387 & 15 min 50 sec \\
+CatBoost & Binary & 0.708 & 0.588 & 68.9\% & --- & --- \\
 Random Forest -- clustering & Binary & --- & --- & 54\% & 0.428 & 0 min 14 sec \\
 Gradient Boosting -- clustering & Binary & --- & --- & 67.9\% & 0.363 & 2 min 16 sec \\
-Bayesian Hierarchical Ordinal* & 3-band ordinal & 0.68 & 0.82 & 65\% & 0.57 & $\sim$96 min \\
+Bayesian Hierarchical Ordinal$^{\dagger}$ & 3-band ordinal & 0.68 & 0.82 & 65\% & 0.57 & $\sim$96 min \\
 \bottomrule
 \end{tabular}}
 \caption{Model-specific performance metrics}
 \label{tab:model-results}
 \end{table}
+\footnotesize
+\item \textit{Notes:} $^{*}$ Weighted accuracy. 
+$^{\dagger}$ Bayesian results are based on a preliminary run using 200 posterior draws, 200 tuning iterations, and 2 chains; therefore, its metrics and runtime are not directly comparable with the other models and are included for indicative comparison only.
 
-\noindent
-*Weighted accuracy. The Bayesian results are based on the available model run and are interpreted cautiously because the model was considerably more computationally demanding and used a different modelling setup.
 
 \FloatBarrier
 \subsection{Predictive performance}
 
 \noindent
-Table 4.1 summarises the available predictive performance measures. LightGBM achieved an AUC of 0.707 and weighted accuracy of 67.4\%, while CatBoost achieved an AUC of 0.708 and accuracy of 68.9\%. Although CatBoost has slightly higher values, the difference should not be interpreted as a direct ranking because LightGBM predicts the three ordered activity categories, whereas CatBoost uses a binary outcome.
+Table 4.1 summarises the available predictive performance measures. The two models most directly relevant to the forecasting framework were ordinal logistic regression and LightGBM, both evaluated using the three-band Activity Level outcome. Ordinal logistic regression achieved an AUC of 0.704 and weighted accuracy of 67.1\%, while LightGBM achieved an AUC of 0.707 and weighted accuracy of 67.4\%. The small difference in performance indicates that the two models provided broadly similar predictive results. LightGBM offered greater flexibility for capturing non-linear relationships and interactions, while ordinal logistic regression provided a simpler and more interpretable representation of the ordered activity outcome.
 
 The clustering approaches produced mixed results. Random Forest clustering achieved 54.0\% accuracy and a Macro F1 of 0.428, while Gradient Boosting clustering achieved 67.9\% accuracy and a Macro F1 of 0.363. The Bayesian hierarchical ordinal model achieved an AUC of 0.680, accuracy of 65.0\%, and Macro F1 of 0.570. These results highlight that the approaches serve different modelling purposes and are therefore not directly interchangeable.
 
@@ -810,20 +885,26 @@ The CatBoost forecasting implementation produced a final 2022--23 borough-level 
 \subsection{Selection of the Ordinal Logistic Model}
 
 \noindent
-The ordinal logistic model was selected as the propensity model for the forecasting framework because it provided the best overall fit with the project's forecasting objective. Most importantly, the framework requires the three ordered activity categories---Inactive, Fairly Active and Active---and the ordinal (cumulative-logit) formulation represents this ordered structure directly. Its predictive performance was effectively equal to that of the gradient-boosting models (AUC 0.704 against 0.708 for LightGBM), so it was preferred on the grounds of equal accuracy with greater simplicity, interpretability, and more stable behaviour when projected populations are pushed through it.
+The ordinal logistic model was selected as the propensity model for the forecasting framework because it provided a strong fit with the project’s forecasting objective. Most importantly, the framework requires the three ordered activity categories---Inactive, Fairly Active and Active---and the ordinal (cumulative-logit) formulation represents this ordered structure directly. Its predictive performance was very similar to that of LightGBM (AUC 0.704 compared with 0.707), so it was preferred because of its greater simplicity and interpretability, while still providing performance suitable for the forecasting framework.
 
 LightGBM and CatBoost remained important comparison models: their similar AUC demonstrates that the predictive relationships are not dependent on a single algorithm, which strengthens confidence in the selected model rather than diminishing it.
 
-The selection of the ordinal logistic model therefore reflects its overall suitability for the forecasting framework, while the close agreement with LightGBM and CatBoost confirms that the predictive relationships are robust across modelling approaches.
+The selection of the ordinal logistic model therefore reflects its overall suitability for the forecasting framework, while the close agreement with LightGBM and CatBoost confirms that the predictive relationships are robust across modelling approaches. This choice involves a trade-off: the ordinal logistic model assumes proportional odds across the activity thresholds, whereas LightGBM is more flexible in capturing non-linear relationships and interactions but is less directly interpretable.
 
 \begin{table}[!htb]
 \centering
-\begin{tabular}{p{0.24\textwidth}p{0.28\textwidth}p{0.25\textwidth}p{0.17\textwidth}}
+\small
+\begin{tabular}{
+>{\raggedright\arraybackslash}p{0.24\textwidth}
+>{\raggedright\arraybackslash}p{0.28\textwidth}
+>{\raggedright\arraybackslash}p{0.25\textwidth}
+>{\raggedright\arraybackslash}p{0.17\textwidth}
+}
 \toprule
 \textbf{Model} & \textbf{Strength} & \textbf{Limitation} & \textbf{Role} \\
 \midrule
-Ordinal Logistic Model & Strongest performance and three-band formulation & & Main forecasting model \\
-LightGBM & Strong performance and three-band formulation & Lower interpretability & Best Comparison model \\
+Ordinal Logistic Model & Three-band ordered formulation; simple and interpretable & Assumes proportional odds across bands & Main forecasting model \\
+LightGBM & Strong predictive performance and three-band formulation & Lower interpretability & Comparison model \\
 CatBoost & Competitive binary prediction & Binary target & Comparison model \\
 Random Forest clustering & Simple segmentation & Lower predictive performance & Exploratory \\
 Gradient Boosting clustering & Captures non-linear patterns & Lower Macro F1 & Exploratory \\
@@ -853,19 +934,21 @@ This distinction ensures that forecasts are supported by the available evidence 
 \subsection{P1 - Overall Participation Forecasts}
 
 \noindent
-\textbf{Physical activity across London as a whole}
+\paragraph{Physical activity across London as a whole}
+\noindent
 
 The model projects broad stability in London’s overall activity levels in the near term. By 2025--26, around 64.9\% of adults are projected to be Active, while 26.0\% are Inactive and 9.1\% are Fairly Active. Although the Active share changes little, the Fairly Active group has declined steadily over the observed period, suggesting a gradual shift away from the middle activity band.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/figP1_1_london_activity_bands.png}
+\includegraphics[width=0.85\textwidth]{figures/figP1_1_london_activity_bands.png}
 \caption{London-wide activity bands, observed 2015--16 to 2022--23 and projected to 2025--26}
 \label{fig:p1-1}
 \end{figure}
 
 \begin{table}[!htb]
 \centering
+\small
 \begin{tabular}{lll}
 \toprule
 \textbf{Component} & \textbf{Effect by 2025--26} & \textbf{Interpretation} \\
@@ -885,18 +968,22 @@ For the longer-term outlook, three scenarios are presented rather than a single 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/figP1_2_ten_year_scenarios.png}
+\includegraphics[width=0.9\textwidth]{figures/figP1_2_ten_year_scenarios.png}
 \caption{Ten-year scenario range for London-wide activity, 2022--2032}
 \label{fig:p1-2}
 \end{figure}
 
+\newpage
+
 \noindent
-\textbf{Likelihood of participating in specific activities}
+\paragraph{Likelihood of participating in specific activities}
+\noindent
 
 Ten-year scenario and three-year scenario ranges were produced for seven individual activities and three club-membership measures. Among them the top two activities are: Walking and Active Travel.
 
 \begin{table}[!htb]
 \centering
+\small
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrr}
 \toprule
@@ -916,23 +1003,32 @@ Team-sport club & 4.7\% & 7.1\% & 4.3\% & 4.7\% \\
 \end{tabular}}
 \caption{Ten-year scenario range by activity/club type (\% of London adults).}
 \label{tab:p1-1}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\textit{Note:} * Club membership figures represent separate, potentially overlapping breakdowns rather than components of a single total. ``Fitness club/gym'' and ``team-sport club'' do not sum to ``club membership (any sport)'', since a person could belong to both, or to a club type not itemised here.
+\end{tablenotes}
+
 \end{table}
 
-\noindent
-*Club membership figures are separate, possibly overlapping breakdowns rather than components of a single total ‘fitness club/gym’ and ‘team-sport club’ do not sum to ‘club membership (any sport)’, since a person could belong to both, or to a club type not itemised here.
+
 
 Continuing recent trends suggests a decline in most individual activities, except cycling, while all three club-membership measures show potential growth. However, this recovery is uneven: team-sport club membership shows the strongest increase (4.7\% $\rightarrow$ 7.1\%), whereas fitness/gym membership remains broadly flat or declines (10.0\% $\rightarrow$ 9.4\%). The wide scenario ranges for team sports and active travel reflect their strong disruption during COVID, so these long-term projections should be interpreted as directional rather than precise forecasts.
 
 \noindent
-\textbf{Forecasts of activity levels for each London borough}
+\paragraph{Forecasts of activity levels for each London borough}
+\noindent
 
-Applying the propensity model to each borough’s projected demographic composition produces a 2025 borough-level forecast ranging from 51.3\% in Barking and Dagenham to 75.4\% in Wandsworth.
+
+Applying the ordinal logistic propensity model to each borough’s projected demographic composition produces a 2025 borough-level forecast ranging from 51.3\% in Barking and Dagenham to 75.4\% in Wandsworth.
+
+The roughly 24-percentage-point gap between the most and least active boroughs is expected to persist throughout the projection period. The non-overlapping confidence intervals suggest that this difference is unlikely to be due to sampling variation alone. In addition, all 32 boroughs show a negative composition effect, ranging from close to zero to around $-0.9$ percentage points, indicating that projected demographic changes are expected to place some downward pressure on activity levels across London, although the size of this effect varies between boroughs.
 
 \begin{figure}[!htb]
 \centering
-\begin{minipage}[t]{0.42\textwidth}
+\begin{minipage}[t]{0.55\textwidth}
 \centering
-\includegraphics[width=\linewidth]{figures/figP1_3a_most_active_boroughs.png}
+\includegraphics[width=\linewidth]
+{figures/figP1_3a_most_active_boroughs.png}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.52\textwidth}
@@ -943,16 +1039,17 @@ Applying the propensity model to each borough’s projected demographic composit
 \label{fig:p1-3}
 \end{figure}
 
-The roughly 24-percentage-point gap between the most and least active boroughs is expected to persist throughout the projection period. The non-overlapping confidence intervals suggest that this difference is unlikely to be due to sampling variation alone. In addition, all 32 boroughs show a negative composition effect, ranging from close to zero to around $-0.9$ percentage points, indicating that projected demographic changes are expected to place some downward pressure on activity levels across London, although the size of this effect varies between boroughs.
 
+\newpage
 \noindent
-\textbf{Key factors that may reduce free time and affect participation}
+\paragraph{Key factors that may reduce free time and affect participation}
+\noindent
 
 Free-time constraint questions were asked once, in the 2022--23 wave only, of approximately a third of respondents. This section is therefore necessarily a cross-sectional snapshot rather than a ten-year forecast.
 
 \begin{figure}[!htb]
 \centering
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.51\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP1_4a_free_time_constraints.png}
 \end{minipage}
@@ -971,11 +1068,13 @@ The results show that work, study and childcare are the main reported constraint
 \subsection{P2 - Demographic-Specific Insights}
 
 \noindent
-\textbf{Forecasted participation levels by demographic group}
+\paragraph{Forecasted participation levels by demographic group}
+\noindent
+
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/figP2_1_demographic_forecast.png}
+\includegraphics[width=\textwidth]{figures/figP2_1_demographic_forecast.png}
 \caption{Activity forecast by demographic group; bar = 3-year forecast range, dot = today’s rate.}
 \label{fig:p2-1}
 \end{figure}
@@ -983,21 +1082,23 @@ The results show that work, study and childcare are the main reported constraint
 The forecast shows clear differences in physical activity across demographic groups, with socio-economic position showing the widest gap: around 73\% activity among the Higher group compared with 50\% in the Lower group (23 percentage points). This is followed by the age gap of around 20 points (70\% among 16--24 vs 50\% among 65+), the disability gap of 19 points, and the ethnicity gap of 13 points. Gender shows the smallest difference, at around 4 points (66\% male vs 62\% female). The 65+ group is particularly important, as it is both the least active group and shows little projected change (around +1 percentage point), meaning London's ageing population may create a demographic headwind to overall activity levels.
 
 \noindent
-\textbf{Types of sport or physical activity each group is most likely to engage in}
+\paragraph{Types of sport or physical activity each group is most likely to engage in}
+\noindent
+
 
 \begin{figure}[!htb]
 \centering
-\begin{minipage}[t]{0.31\textwidth}
+\begin{minipage}[t]{0.38\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP2_2a_activity_by_age.png}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.31\textwidth}
+\begin{minipage}[t]{0.38\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP2_2b_activity_by_gender_ethnicity.png}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.31\textwidth}
+\begin{minipage}[t]{0.38\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP2_2c_activity_by_socioeconomic_disability.png}
 \end{minipage}
@@ -1010,20 +1111,22 @@ Walking is the most common activity across all demographic groups, although part
 Socio-economic position shows particularly large differences in facility-dependent activities, with fitness at 40\% in the Higher group versus 20\% in the Lower group and cycling at 25\% versus 11\%. However, team sports are highest among the Student/Other group (14\%), while dance varies relatively little across socio-economic groups. Similarly, adults with a limiting disability have the lowest participation across all seven activities, with particularly large gaps in fitness, racket sports and active travel, but almost no gap in dance. Overall, dance stands out as the exception: unlike most other activities, it shows relatively small socio-economic and disability differences, suggesting that activities requiring greater access to facilities, equipment or organised provision are more strongly associated with demographic inequalities.
 
 \noindent
-\textbf{Participation within each London borough}
+\paragraph{Participation within each London borough}
 
-Data note: the ask was for participation in specific activities within each borough. However, the details for activity-type $\times$ borough was not available at reportable cell sizes. Thus, the provided plot is broken down by age-group participation within each borough. Borough-by-demographic cells are small: a single borough-by-age cell contains around six respondents in a given wave. All eight waves were therefore pooled and thin cells suppressed.
+\noindent
+
+\textbf{Data note:} the ask was for participation in specific activities within each borough. However, the details for activity-type $\times$ borough was not available at reportable cell sizes. Thus, the provided plot is broken down by age-group participation within each borough. Borough-by-demographic cells are small: a single borough-by-age cell contains around six respondents in a given wave. All eight waves were therefore pooled and thin cells suppressed.
 
 The 65+ group is the least active in all 32 boroughs, but the youngest group is not always the most active. In 11 boroughs, 25--44 matches or exceeds 16--24, most notably in Borough 012 (Hackney), where activity rises from 64\% (16--24) to 76\% (25--44). The age gap also varies considerably between boroughs, from 29 points in Borough 027 (Richmond upon Thames) (84\% vs 55\%) to just 11 points in Borough 014 (Haringey) (65\% vs 54\%). Borough 032 (Wandsworth) has the highest 65+ rate (59\%), while 002 (Barking and Dagenham) has the lowest (36\%), showing that borough-level differences can reinforce the effect of age.
 
 \noindent
-\textbf{Likelihood of participation among people with health conditions}
+\paragraph{Likelihood of participation among people with health conditions}
 
 Self-rated health is available from 2018--19 onwards (only 5 years data with 2 years of covid); the health-condition measures apply to people with a limiting disability. Results are descriptive, not forecasts.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=0.9\textwidth]{figures/figP2_4_health_activity.png}
+\includegraphics[width=1.0\textwidth]{figures/figP2_4_health_activity.png}
 \caption{Activity by self-rated health, long-term condition and mental-health condition}
 \label{fig:p2-4}
 \end{figure}
@@ -1034,7 +1137,7 @@ Activity shows a strong and consistent health gradient, falling from 76\% among 
 \subsection{P3 - Indoor vs Outdoor Activity}
 
 \noindent
-\textbf{The expected balance of indoor versus outdoor physical activity}
+\paragraph{The expected balance of indoor versus outdoor physical activity}
 
 The projection extends only to 2025 and is based on a $\sim$30\% subsample, so it should be treated as indicative rather than a full ten-year forecast.
 
@@ -1048,7 +1151,9 @@ The projection extends only to 2025 and is based on a $\sim$30\% subsample, so i
 Outdoor activity remains substantially more common than indoor activity, at around 65--72\% compared with 29--42\% over the observed period. Both declined during COVID, but indoor participation fell more sharply, from 41\% in 2018 to 29\% in 2020, and had only partly recovered to 37\% by 2022. The indicative projection suggests indoor activity may fall further to 34\% by 2025, while outdoor activity remains broadly stable at 67\%, widening the gap between the two. However, this projection has a wide uncertainty range because it is based on the smaller subsample, so the figures should be interpreted directionally rather than as precise forecasts.
 
 \noindent
-\textbf{Differences in indoor and outdoor activity preferences among people with varying activity levels}
+\paragraph{Differences in indoor and outdoor activity preferences among people with varying activity levels}
+\noindent
+.
 
 \begin{figure}[!htb]
 \centering
@@ -1073,7 +1178,9 @@ Outdoor activity remains substantially more common than indoor activity, at arou
 Indoor activity differs much more by activity level than outdoor activity: Active respondents are more than twice as likely to participate indoors (52\% vs 23\%), while outdoor participation is already high (93\% vs 78\%). Street/road activity dominates outdoors (66\% vs 85\%) and changes least, whereas leisure-centre use shows the largest absolute increase (11\%$\rightarrow$32\%), followed by at-home activity (5\%$\rightarrow$16\%). Park and countryside/coast use also increase (2\%$\rightarrow$8\% and 8\%$\rightarrow$21\%). Overall, Fairly Active people mainly rely on accessible outdoor activity, while Active people are more likely to add indoor and a wider range of activity settings to their routine.
 
 \noindent
-\textbf{Relationships between inner vs outer London locations, activity levels and socio-economic factors}
+\paragraph{Relationships between inner vs outer London locations, activity levels and socio-economic factors}
+\noindent
+
 
 \begin{figure}[!htb]
 \centering
@@ -1091,28 +1198,32 @@ Inner London generally has higher participation than Outer London across all soc
 Data Note: Volunteering cannot be reliably forecast because the survey question base changed across the years and demographics explain only around 15\% of borough-level variation. It is therefore reported descriptively rather than forecast at borough level.
 
 \noindent
-\textbf{Current volunteering patterns across demographic groups}
+\paragraph{Current volunteering patterns across demographic groups}
+\noindent
+
+Volunteering is highest among younger adults, with 16--24-year-olds at 25\%, compared with 15\% among 65+. Men also volunteer more than women (21\% vs 15\%), while there is a clear socio-economic gradient (19\% Higher vs 12\% Lower). In contrast, volunteering varies much less by ethnicity and disability, ranging from 15--20\% across ethnic groups and 15--19\% by disability status. Overall, age, gender and socio-economic background show stronger differences than ethnicity or disability.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{figures/figP4_1_volunteering_background.png}
+\includegraphics[width=0.9\textwidth]{figures/figP4_1_volunteering_background.png}
 \caption{Volunteering in sport by background, pooled across waves. Described, not forecast.}
 \label{fig:p4-1}
 \end{figure}
 
-Volunteering is highest among younger adults, with 16--24-year-olds at 25\%, compared with 15\% among 65+. Men also volunteer more than women (21\% vs 15\%), while there is a clear socio-economic gradient (19\% Higher vs 12\% Lower). In contrast, volunteering varies much less by ethnicity and disability, ranging from 15--20\% across ethnic groups and 15--19\% by disability status. Overall, age, gender and socio-economic background show stronger differences than ethnicity or disability.
+\newpage
 
 \noindent
-\textbf{Volunteer role patterns across demographic groups}
+\paragraph{Volunteer role patterns across demographic groups}
+\noindent
 
 \begin{figure}[!htb]
 \centering
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.43\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP4_2a_volunteer_roles.png}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.48\textwidth}
+\begin{minipage}[t]{0.43\textwidth}
 \centering
 \includegraphics[width=\linewidth]{figures/figP4_2b_volunteer_roles_demographics.png}
 \end{minipage}
@@ -1123,7 +1234,6 @@ Volunteering is highest among younger adults, with 16--24-year-olds at 25\%, com
 Organising/administration is the most consistent volunteer role across demographic groups, particularly among middle- and higher-income groups and most ethnicities. Younger adults stand out for more hands-on roles, with 16--24s highest in stewarding (10.1\%) and coaching (8.4\%). There is also a clear gender difference: men are more represented in coaching, officiating and stewarding, while women are more concentrated in organising and support. Lower socio-economic and some disability groups also show relatively higher reliance on stewarding/support roles.
 
 \FloatBarrier
-\setcounter{section}{4}
 \section{Critical Discussion}
 
 \noindent
@@ -1133,7 +1243,7 @@ The demographic results also show clear differences in participation between gro
 
 These findings have several practical implications for London Sport and local authorities. A single intervention is unlikely to address all of the differences observed. Walking and active travel provide an important low-barrier foundation, while activities such as fitness, cycling and structured sport show larger socio-economic and disability gaps. Improving access to facilities, clubs and suitable local infrastructure could therefore help address some of these differences. The relatively even pattern in volunteering also suggests that volunteering opportunities could provide another way of engaging people from a wider range of backgrounds.
 
-The forecasts should, however, be treated as indicative estimates rather than precise predictions. The Active Lives Survey is repeated cross-sectional data, meaning that the analysis captures changes in the population rather than following the same individuals over time. The forecasting period is also based on a limited number of clean annual observations, with COVID-19 affecting several activity measures. Population projections introduce further uncertainty, while behavioural projections assume that historical patterns provide a reasonable indication of future change. Some outcomes, including volunteering and health-related measures, were therefore reported descriptively rather than forecast.
+The forecasts should, however, be treated as indicative estimates rather than precise predictions. The Active Lives Survey is repeated cross-sectional data, meaning that the analysis captures changes in the population rather than following the same individuals over time. The forecasting period is also based on a limited number of clean annual observations, with COVID-19 affecting several activity measures. Population projections introduce further uncertainty, while behavioural projections assume that historical patterns provide a reasonable indication of future change. The principal propensity model also assumes proportional odds across the three activity bands, which simplifies the modelling of the ordered outcome but may not fully capture differences in predictor effects between activity thresholds. Some outcomes, including volunteering and health-related measures, were therefore reported descriptively rather than forecast.
 
 Overall, the findings suggest that future activity in London will be shaped by both changes in the population and the opportunities available to people. Demographic ageing is difficult to change directly, but the behavioural and place-related factors identified in this analysis provide areas where policy and investment can make a difference. The forecasts are therefore most useful for identifying which groups and areas may need greater attention and where interventions could have the greatest potential impact, rather than as exact predictions of London's future activity levels.
 
@@ -1146,31 +1256,84 @@ Overall, the findings suggest that future activity in London will be shaped by b
 
 \section{Summary of Contributions}
 
-This project addressed a gap in how the Active Lives Survey has typically been used: existing research describes historical participation but rarely forecasts future change. Using eight harmonised waves of the Active Lives Adult Survey (2015--16 to 2022--23) across London's 32 boroughs, the project developed a decision support framework that separates the relationship between individual demographic characteristics and activity level from projected changes in future population composition, avoiding the need to fit a conventional time series model to only 256 borough-year observations.
+The Active Lives Survey is built to describe what has already happened, and it does that well. It is not built to say what will happen next. A new sample of respondents is drawn each year, so there is no panel to follow, and eight annual waves give only 256 borough-year observations, three of which fall in the COVID-19 period. That is thin evidence for any conventional time-series method. This project worked around the problem rather than around the data, by estimating the relationship between individual characteristics and activity from the full sample of 135{,}497 respondents and introducing time separately, through projected population composition and an estimated behavioural trend.
+The main contributions are as follows.
 
-Key contributions include:
+\paragraph{Harmonisation of eight structurally inconsistent survey waves.}
+Local-authority identifiers were mapped to permanent ONS GSS codes so that the same 32 boroughs could be identified across every year. Sentinel codes were converted to missing values rather than treated as observations. Categories were reconciled where labels had changed but the underlying coding had not, as with the mid-level activity band renamed from Insufficiently Active to Fairly Active, and recoded where they genuinely differed, as with the additional NSSEC5 category folded into an existing one from 2019--20. Members of the team independently found borough codes that had been matched incorrectly between waves. That check was worth the time it took. A geographic mismatch produces no error message and no obviously wrong output, so it would have contaminated everything downstream
+without ever announcing itself.
 
-\begin{enumerate}
-    \item Harmonisation of eight structurally inconsistent survey waves (292--601 variables each) into a single dataset of 135,497 respondents with standardised ONS borough codes.
-    \item A propensity-based forecasting framework that decomposes forecasted change into a \emph{composition effect} (demographic shift) and a \emph{behaviour effect} (change within demographic groups), the project's most policy-relevant finding, showing that London's apparently stable overall activity rate masks an ageing-population headwind being offset by genuine behavioural improvement.
-    \item A four-model comparison (ordinal logistic regression, LightGBM, CatBoost with SHAP, K-Modes clustering, and Bayesian hierarchical modelling) under consistent time-based validation, with LightGBM selected as the final forecasting model (AUC 0.707, $\sim$16 minute runtime).
-    \item A composition--place decomposition showing borough identity explains a further 40 percentage points of between-borough variation beyond demographics alone (48\% $\rightarrow$ 88\%).
-    \item Application of the framework across four pillars --- overall participation, demographic differences, indoor/outdoor balance, and volunteering --- forecasting only where the data supported it and reporting descriptively elsewhere.
-\end{enumerate}
+\paragraph{A comparison of the candidate modelling approaches under one
+validation scheme.}
+The ordinal logistic model, LightGBM, CatBoost with SHAP, K-Modes clustering with supervised classifiers, and a Bayesian hierarchical ordinal model were all developed on the same prepared data and tested on the same unseen 2022--23 wave. The predictive results were close: AUC of 0.704 for the ordinal logistic model, 0.707 for LightGBM and 0.708 for CatBoost. The agreement is itself a finding. It indicates that the demographic signal in the data is real but bounded, and that
+it does not depend on the choice of algorithm.
+
+\paragraph{Selection of the ordinal logistic model as the propensity component of the framework.}
+It represents the three ordered activity bands directly, its coefficients can be read without additional tooling, and it behaves predictably when projected populations are passed through it. Its predictive performance was very similar to that of the gradient-boosting models, so the selection involved a small trade-off in predictive performance in favour of greater simplicity and interpretability.
+
+\paragraph{A forecasting framework that separates composition from behaviour.}
+Borough activity rates are built up from cell-level propensities weighted by projected demographic shares, with a behavioural term estimated from the
+non-pandemic waves and added on top. Rolling-origin backtesting across the clean forecast origins gave a mean absolute error of 2.74 percentage points against 3.44 for the persistence baseline, with skill scores of $+0.20$ against the naive persistence benchmark and $+0.31$ against drift. The framework therefore does better than simply carrying the last observed rate forward, which is the comparison that matters for a method intended to be used.
+
+\paragraph{The decomposition result itself.}
+By 2025--26 the composition effect is $-0.37$ points and the behavioural effect $+0.69$ points, for a net of $+0.32$. London's overall activity rate looks flat, and a conventional forecast would report it as flat and stop. What the decomposition shows is that the flatness is a coincidence of two genuine trends pulling in opposite directions. If behavioural improvement stalls, the demographic pull takes over. This is the most useful result the project produced for a stakeholder, because it changes what stability means in practice.
+
+\paragraph{Application across four analytical pillars with an explicit rule for when to forecast.}
+Overall activity, activity types, club membership and the main demographic groups were forecast. Free-time constraints, volunteering, indoor and outdoor activity and health were reported descriptively, because each fails at least one of the three conditions the project set: consistent measurement across years, adequate sample coverage, and enough predictive structure from the demographic variables. Publishing a projection for volunteering would have been easy and would have looked no different on the page. It would also have implied a confidence the data cannot support.
 
 \section{Evaluation Against Aims and Objectives}
 
-All five objectives set out in Chapter~\ref{chap:introduction} were met. Harmonisation (Objective 1) is documented in Chapter~\ref{chap:methodology}. The propensity model was developed and benchmarked (Objective 2): the ordinal logistic regression offered near-identical performance to LightGBM (AUC 0.704 vs 0.707) with fully transparent coefficients, but the fuller comparison in Chapter~\ref{chap:evaluation} --- weighing runtime, non-linear interactions, and integration with forecasting --- favoured LightGBM as the production model, a reasonable trade-off given it retains feature-importance interpretability while handling the broader activity-type dataset better.
+All five objectives set out in Chapter~\ref{chap:introduction} were met, though two of them deserve some qualification.
 
-Composition versus place effects (Objective 3) were established via the composition--place decomposition and corroborated independently by the Bayesian random-effects model and the CatBoost/SHAP residual analysis. The forecasting framework itself (Objective 4) is the project's central methodological contribution, directly addressing the eight-wave data limitation that ruled out conventional time series methods. Finally, the framework was applied across all four analytical pillars (Objective 5), with volunteering and indoor/outdoor activity correctly handled descriptively rather than forecast, given their more limited question coverage.
+Objective 1, harmonisation, is documented in Chapter ~\ref{chap:methodology} and produced the merged dataset of 135{,}497 respondents on which everything else rests.
 
-The project therefore achieved its aim: an interpretable, borough-level forecasting framework was built and applied, producing results, notably the composition/behaviour decomposition and the persistent $\sim$24 point gap between the most and least active boroughs, directly usable by a non-technical stakeholder such as London Sport.
+Objective 2, developing and comparing candidate models and selecting one for the framework, was met, but the selection was a judgement rather than a result forced by the numbers. LightGBM had the higher AUC on the three-band target, by 0.003. The difference was small, so the decision came down to the other criteria: the ordinal formulation matches the outcome the framework needs, the coefficients are directly interpretable to the intended audience, and the model is stable when projected populations are pushed through it. A reader who weighted raw predictive accuracy more heavily could defend the opposite choice. It is worth being clear that this was a trade-off and not a ranking.
 
-\section{Limitations and Future Work}
+Objective 3, examining how far borough differences are associated with
+demographic composition, was addressed through the exploratory analysis and the Bayesian hierarchical model. Borough-level variation did not disappear once observed demographic characteristics were accounted for, which justified treating geography as a separate component of the framework. What the analysis cannot do is say what that residual variation consists of. Calling it a place effect names it without explaining it.
 
-The survey's repeated cross-sectional design means the analysis captures population-level rather than within-individual change, and COVID-19 disruption reduced usable years for several sub-analyses (health-linked participation, indoor/outdoor split). Borough-level differences are not fully explained by demographic and survey data alone; incorporating external data such as facility density, green space, and cycling infrastructure is a natural next step to help distinguish environmental access from persistent local behaviour differences.
+Objective 4, the forecasting framework, is the project's central methodological contribution. It responds directly to the constraint that ruled out conventional time-series methods, and the backtesting in Chapter~\ref{chap:evaluation} shows it improves on both simple baselines rather than merely being more elaborate than them.
 
-Two further directions stand out. First, the Bayesian hierarchical model showed promise for quantifying borough-level forecast uncertainty but was constrained by long runtimes ($\sim$96 minutes) and limited posterior sampling; a more efficient implementation could move it from a corroborating role to a primary source of uncertainty estimates. Second, as further survey waves become available, volunteering and indoor/outdoor measures such as currently descriptive due to changing question bases and smaller subsamples, could be brought into the forecasting framework once a longer, more consistent time series exists.
+Objective 5, application and accessible presentation, was met across all four pillars, with the forecast-versus-describe distinction applied consistently.
+
+The overall aim was to build an interpretable borough-level framework for
+analysing and forecasting participation across London. That was achieved. The 2025 borough forecasts range from 51.3\% in Barking and Dagenham to 75.4\% in Wandsworth, a gap of roughly 24 percentage points that the projections expect to persist, and every one of the 32 boroughs carries a negative composition effect. Both results can be explained to a non-technical audience without reference to the model that produced them, which was the point.
+
+\section{Limitations}
+
+The repeated cross-sectional design is the binding constraint. The analysis
+describes how the population changes, not how individuals change. When the
+framework reports a behavioural improvement within a demographic group, it cannot distinguish between the same sort of people becoming more active and the composition of that group shifting in ways the demographic cells do not capture.
+
+The behavioural trend rests on a small number of observations. Three of the eight waves were affected by the pandemic and were held out of the trend fit, leaving an estimate of roughly $+0.23$ percentage points per year drawn from very few clean years. A single unusual wave would move that number noticeably, and it carries directly into every forecast the framework produces.
+
+The propensity model does not directly model temporal trends or extrapolate activity into future survey years. Instead, time-dependent changes are introduced separately through the projected population composition and behavioural trend. If the relationship between demographic characteristics and activity shifts, for instance if the 65+ group becomes substantially more active than earlier cohorts at the same age, the framework will absorb this into the behavioural residual rather than into the propensities themselves. It will take several further waves before such a change is visible.
+
+The ordinal logistic propensity model also assumes proportional odds across the three activity bands. This means that the effect of each predictor is assumed to be consistent across the thresholds between Inactive, Fairly Active and Active. If predictor effects differ between these thresholds, the model may not fully capture the underlying relationships.
+
+Population composition was projected by trending survey-based demographic shares on the logit scale, with borough trends shrunk halfway towards the London-wide trend. The shrinkage is a reasonable guard against extrapolating wildly from eight points, but the value of 0.5 was chosen for stability rather than calibrated against an external benchmark, and the projections are not official ONS or GLA population projections.
+
+Borough differences remain unexplained. Without data on facility density, green space, transport provision and local deprivation at a matching resolution, the analysis can show that boroughs differ after demographics are accounted for but cannot say why.
+
+An AUC of around 0.70 means demographic characteristics predict individual behaviour only moderately well. That is adequate for the aggregate shares the framework produces, since errors at the individual level largely cancel across a borough population. It is not adequate for any claim about a particular person.
+
+Several outcomes could not be forecast. Volunteering was measured on a changing question base and demographics account for only around 15\% of borough-level variation in it. Indoor and outdoor activity was asked of roughly 30\% of respondents through a rotating subsample. Free-time constraints appear in one wave only. Health, despite being the strongest single correlate of activity found anywhere in the analysis, is available for five years, two of which were excluded as atypical. Borough-by-demographic cells are also thin, at around six respondents per cell per wave, which is why all eight waves had to be pooled for that breakdown.
+
+\section{Future Work}
+
+The most direct extension is to bring in external borough-level data. Facility density, green space, cycling infrastructure and deprivation measures could be added as borough covariates to test whether the residual geographic variation shrinks once they are included. That would turn the place effect from a label into something with content, and would tell London Sport whether the differences between boroughs are mainly about provision or about something else.
+
+Replacing the survey-based population trending with official sub-national population projections would remove one source of uncertainty and would make the composition effect easier to defend to a statistically literate stakeholder.
+
+The Bayesian hierarchical model was the natural home for forecast uncertainty but was held back by runtime, which reached around 96 minutes for a single fit. A more efficient implementation, whether through a reparameterised model or variational inference, could move it from a corroborating role to the primary source of interval estimates, so that borough forecasts carry credible intervals derived from the model rather than approximated separately.
+
+A further methodological extension would be to assess alternatives to the proportional-odds assumption used by the ordinal logistic propensity model. Models that allow predictor effects to vary across the thresholds between Inactive, Fairly Active and Active could be compared with the current formulation to determine whether the additional flexibility provides a meaningful improvement in predictive performance.
+
+As further waves are released, the measures currently reported descriptively should be revisited. Volunteering and the indoor and outdoor split need a longer run of consistent questions before they can be forecast, and the same applies to the health measures, which would be the most valuable addition of the three given how strongly health relates to activity.
+
+Finally, the framework currently answers the question of what happens if present trends continue. Stakeholders will also want to know what happens if a particular intervention is made. Answering that would mean linking policy levers to cell-level propensities, which requires evidence about intervention effects that the Active Lives Survey does not contain. It would be a different project, but the framework built here provides a reasonable place to attach it.
+
+For London Sport, the practical message is not the headline forecast. It is that the headline is stable for two reasons that could easily stop cancelling each other out, that the gap between the most and least active boroughs is wide and shows no sign of closing on its own, and that the activities where boroughs differ most are the ones that depend on facilities and organised provision. Those are the parts of the picture that can actually be acted on.
 
 
 
@@ -1333,7 +1496,7 @@ Prevalence (base rate for everyone) & 0.500 & The absolute floor \\
 Age band alone & 0.572 & One predictor \\
 Ethnicity alone & 0.568 & One predictor \\
 Socio-economic group alone & 0.619 & Strongest single feature \\
-Full propensity model & 0.704 & Clears any single feature by 0.085 \\
+Ordinal logistic propensity model & 0.704 & Clears any single feature by 0.085 \\
 \bottomrule
 \end{tabular}
 \end{table}
